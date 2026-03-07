@@ -4,13 +4,22 @@
 - 从线程池中拿一个线程执行任务  
 - Task.Run()执行一个委托，可以是匿名委托。默认返回值为Task类型
 - _= 下划线加等于号可以 忽略返回值（Discards）
-- await:加了await 主线程在结束前会等待该方法的结果，不加主线程直接结束
-  
+- 加了await  
+  如果时IO操作，则后台线程会返回线程池，如果时需要线程的技术操作后台线程继续执行，主线程继续向下，程序会一直运行到await拿回结果
+- 不加await
+  任务交由线程池中的线程执行，主线程继续向下运行，主线程结束时不会等待结果
+  <img width="400" height="442" alt="image" src="https://github.com/user-attachments/assets/34b9cc5c-d340-4a4f-97ec-3fba555c8606" />
+- 主线程 线程池 后台线程 前台线程
+  主线程：通常是只有一个,通常程序运行时自动开启（主线程是前台线程）
+  线程池：由CLR管理，线程池中都是后台线程。（可复用的劳动力），当所有前台线程关闭时后台线程自动关闭
+  前台线程：new Thread创建的都为前台线程，只要存在前台线程程序就不会关闭
+
 
 **Task.Wait(taskA,TaskB);**
 - 1 返回值类型为void（同步方法），
 - 2 同步等待，阻塞线程直到所有任务完成，
 - 3 如果内部有异常会在wait all结束后抛出。（异常会被收集在AggregateException中）
+<img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/640c1e92-de89-4aec-b391-7d18572480af" />
 
   
 

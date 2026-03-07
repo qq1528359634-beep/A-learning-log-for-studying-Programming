@@ -1,3 +1,20 @@
+# 03.07
+## Multi Threading
+**Task.Run()**
+- 从线程池中拿一个线程执行任务  
+- Task.Run()执行一个委托，可以是匿名委托。默认返回值为Task类型
+- _= 下划线加等于号可以 忽略返回值（Discards）
+- await:加了await 主线程在结束前会等待该方法的结果，不加主线程直接结束
+  
+
+**Task.Wait(taskA,TaskB);**
+- 1 返回值类型为void（同步方法），
+- 2 同步等待，阻塞线程直到所有任务完成，
+- 3 如果内部有异常会在wait all结束后抛出。（异常会被收集在AggregateException中）
+
+  
+
+
 # 03.05
 ## bootstrap
 <img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/1f07112a-c51b-48c6-960b-dc6faa97b8a1" />     

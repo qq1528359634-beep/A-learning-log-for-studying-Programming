@@ -1,43 +1,53 @@
+## 03.10 WebApi
 
-## 03.09
-## webAPi
+~~~
+builder.Services.AddTransient<IWebApiExecuter, WebApiExecuter>();
+~~~
+注册WebApiExecuter（服务）接口以及（服务）接口的具体实现
+ 自定义服务 想要手动注册 
+`IHttpClientFactory`是系统已经在框架里注册好了的，所以我们只需要配置就能够使用
+
+
+~~~
+     private readonly IWebApiExecuter webApiExecuter;
+
+     public ShirtsController(IWebApiExecuter webApiExecuter)
+     {
+         this.webApiExecuter = webApiExecuter;
+     }
+     public async Task<IActionResult> Index()
+     {
+         var shirts = await webApiExecuter.InvokeGet<List<Shirt>>("shirts");
+         return View(shirts);
+
+     }
+~~~
+依赖注入向框架请求服务，异步方法调用WebApiExecute中的InvokeGet方法
+readonly和get属性只能在声明时或初始化时被赋值
+## 03.09 WebApi
 native AOT 原生，编译时可以编译为本机代码（性能要求很高的类库，底层是C++）
 **控制器与路由**
 一个类继承于ControllerBase那么就具有了控制器的能力和行为
 
 **如何在项目中调用访问其他api**
-
-Program.cs 启动  
-↓  
-AddHttpClient("ShirtsApi") 注册配置  
-↓  
-DI容器保存配置  
-↓  
-某处请求 HttpClient  
-↓  
-httpClientFactory.CreateClient("ShirtsApi")  
-↓  
-框架创建 HttpClient  
-↓  
-执行 client => {...}  
-↓  
-返回配置好的 HttpClient
-
 1.  配置
-通过AddHttpClient向builder容器添加名为“ShirtsApi” 的HttpClient配置规则 ，
-*返回IHttpClientBuilder（配置对象）类型可以用来进行链式调用，不过这里被忽略了*
+向生成器配置名为“ShirtsApi” 客户端 ，定义该客户端的根地址，和请求头
+https://localhost:7025/api/Controller   协议，域名，端口 ，路由前缀，控制器
 ```
-//注册HttpClient服务，命名为ShirtApi，设置基础地址和默认请求头
-builder.Services.AddHttpClient("ShirtsApi", client =>
-{ 
-    client.BaseAddress=new Uri("https://localhost:7025/api/");
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
+builder.Services.AddHttpClient("ShirtsAPi",client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7025/api");
+    client.DefaultRequestHeaders.Add("Accept","Appliaction/Json");
 });
 
 ```
 
-2. 依赖注入-通过构造函数
-```
+2. 使用
+通过依赖注入来向框架请求IHttpClientFactory实例
+使用实例方法CreatClient向容器请求已经配置好的客户端
+使用客户端的GetFromJsonAsync方法访问端点返回Json文件
+*(将发送请求转换为二进制发送，并接收二进制流编码按Json格式进行解析)*
+~~~
 private const string apiName = "ShirtsApi";
 private readonly IHttpClientFactory httpClientFactory;
 
@@ -45,15 +55,13 @@ public WebApiExecuter(IHttpClientFactory httpClientFactory)
 {   
     this.httpClientFactory = httpClientFactory;
 }
-```
-3. 创建对应不同http动词的不同方法
-~~~
  public async Task<T?> InvokeGet<T>(string relativerUrl)
  {   
      var httpClient = httpClientFactory.CreateClient(apiName);
      return await httpClient.GetFromJsonAsync<T>(relativerUrl);
  }
 ~~~
+
 
 ## 03.08 Multi Threading
 **多线程的缺点

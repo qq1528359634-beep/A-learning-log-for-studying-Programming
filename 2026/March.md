@@ -1,3 +1,61 @@
+## 3.14 Html
+**框架级标签**
+1.  !DOCTYPE html 定义文档的类型
+2.  html 定义html文档
+3.  head 定义文档的头部
+	- base   
+	- title   
+	- meta
+4.  body 定义文档的主体
+~~~
+    <b>这是加粗标签(bold)</b><strong></strong>  <br>
+    2<sup>2</sup>这是上标标签
+    <br>
+    2<sub>2</sub>这是下标标签
+    <br>
+    <s>strikethrough</s>这是删除线标签
+    <u>underline</u>这是下划线标签
+    <br>
+    <i>italics</i><em></em> 这是斜体标签
+    <br>
+    <code></code>这是代码标签
+    <br>
+    <cite>cite</cite>  这是引用标签
+    <p>p标签独占一行</p><p>p标签独占一行</p>
+    <hr>分割线标签
+    <pre>按照输入格式
+    显示文本
+</pr>
+~~~
+**链接标签**
+   href属性可以存放图片，文件路径，网址，锚点；
+~~~
+ <a href="header.png">诗歌剧的照片</a><br>
+ <a href="111.zip">文件</a><br>
+ <a href="https://www.google.com">google</a>
+~~~
+- id
+标签身份的唯一标识
+~~~
+<h1 id="h111">标题1</h1>
+<br>
+<br>
+//锚点
+<a href="#h111">跳转到id为h111锚点<>
+~~~
+ - targe
+ ~~~
+ //self 本页面跳转
+ //bank 打开新页面跳转
+ <a href="https://www.google.com" target="_self">google本页面跳转</a><br>
+ <a href="https://www.google.com" target="_bank">google新面跳转</a>
+ ~~~
+**图片标签**
+~~~
+ <!--图标标签-->
+ <img src="header.png" alt="图片失效（失效代替）">诗歌剧
+~~~
+
 ## 3.13 WebApi
 - 如何做自己的API
 控制器继承于父类ControllerBase

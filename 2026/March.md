@@ -1,3 +1,141 @@
+## 3.15 Html
+**列表标签**
+- **无序列表**
+	无序列表是工作中最常用的列表，ul是定义无序状态的标签，li是具体的列表项
+- **type属性 circle/disk/square**
+~~~
+   <ul >
+       <li type="circle">无序列表1</li>
+       <li type="disk">无序列表2</li>
+       <li type="square">无序列表3</li>
+   </ul>
+   <ul>
+    <li type="circle">无序列表1</li>
+    <li type="disk">无序列表2</li>
+    <li type="square">无序列表3</li>
+  </ul>
+    <li>无序列表1</li>
+    <li>无序列表2</li>
+    <li>无序列表3</li>
+  </ul>
+~~~
+	无序标签之中可以嵌套其他内容,如图片 超链接 
+ - **有序列表 自定义列表**
+~~~
+	 <!--无序标签-->
+
+<!--有序列表标签-->
+<ol>
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+<ol type="i">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+<ol type="I">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+<ol type="a">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+<ol type="A">
+    <li>有序列表1</li>
+    <li>有序列表2</li>
+    <li>有序列表3</li>
+</ol>
+~~~
+- **自定义列表标签**
+~~~
+<!--dl定义自定义列表的标签，dt设置标题，dd具体列-->
+<dl>
+    <dt>自定义标题1</dt>
+    <dd>自定义列1</dd>
+    <dd>自定义列2</dd>
+    <dt>自定义标题2</dt>
+    <dd>自定义列1</dd>
+    <dd>自定义列2</dd>
+</dl>
+<!--表格标签 table定义表格 tr定义表格行 td定义单元格-->
+<!--colspan="2" 表格跨2列-->
+<!--rowspan="2" 表格跨2行-->
+<table width="300" height="300" border="1">
+<tr>
+    <td>A</td>
+    <td colspan="2">B</td>
+</tr>
+<tr>
+    <td rowspan="2">C </td>
+    <td>D</td>
+    <td>D</td>
+</tr>
+<tr>
+    <td>E</td>
+    <td>F</td>
+</tr>
+</table>
+~~~
+- **表单标签**
+	- 侧重于向后端发送数据
+	- 主要已input**标签为主** 辅之以name属性，通过form表单向后端发送数据
+	- input 不需要闭标签 因为xhtml
+	~~~
+	 <!--表单标签-->>
+ <form action="后端URL" method="提交方式">
+     <input type="text" name="与后端参数名一直" value="">
+     <br>
+     <input type="count" name="与后端参数名一直" value="">
+     <br>
+     <input type="date" name="与后端参数名一直" value="">
+     <br>
+     <input type="radio" name="与后端参数名一直" value="">
+     <br>
+     <input type="checkbox" name="与后端参数名一直" value="boy">
+     <br>
+     <input type="hidden" name="与后端参数名一直" value="">
+     <br>
+     <select name="class">
+         <option>class one</option>
+         <option>class two</option>
+     </select>
+     <br>
+     <input type="submit" value="提交" />
+     <input type="reset" value="重置" />
+ </form>
+	~~~
+- **iframe 标签**
+  - 用于在一个页面中嵌入另一个页面
+  - 配合a标签使用时，可以用a标签指定iframe指向的页面
+~~~
+<!--iframe标签 网址禁用ifrma嵌入的情况也有-->
+<a href="https://www.google.com" target="iframe-test  ">show google in iframe</a><br>
+<iframe name="iframe-test" width="600" height="600"></iframe>
+<!--div&span 容器标签 重要-->
+<!--div是块状容器，独占一行，主要用于搭建网页布局，页面整体布局就靠它-->
+<!--span是行级容器，其大小自适应于包裹的对象-->
+<div>
+    <span>这是span标签</span>
+    <span>hello</span>
+</div>
+<div>
+    <span>这是span标签</span>
+    <span>world</span>
+</div>
+<input type="text"> <br>
+<input type="checkbox" checked> <br>
+<input type="button" value="button"> <br>
+<input type="password" placeholder="please input password"> <br>
+<input type="tel">
+<br>
+<textarea name="message" rows="10" cols="30">sss</textarea
+~~~
+
 ## 3.14 Html
 **框架级标签**
 1.  !DOCTYPE html 定义文档的类型

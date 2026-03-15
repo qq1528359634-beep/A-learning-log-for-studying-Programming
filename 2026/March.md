@@ -85,7 +85,7 @@
 	- 侧重于向后端发送数据
 	- 主要已input**标签为主** 辅之以name属性，通过form表单向后端发送数据
 	- input 不需要闭标签 因为xhtml
-	~~~
+~~~
 	 <!--表单标签-->>
  <form action="后端URL" method="提交方式">
      <input type="text" name="与后端参数名一直" value="">
@@ -108,7 +108,7 @@
      <input type="submit" value="提交" />
      <input type="reset" value="重置" />
  </form>
-	~~~
+~~~
 - **iframe 标签**
   - 用于在一个页面中嵌入另一个页面
   - 配合a标签使用时，可以用a标签指定iframe指向的页面

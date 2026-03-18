@@ -1,3 +1,26 @@
+## 3.18 CSS
+### 定位
+- position: absolute | 
+  - 绝对定位absolute是以浏览器为参考系，但是如果绝对定位的元素在 非静态定位（static）的元素中，那就以这个元素为参考,绝对定位与left right top bottom连用
+  - fixed
+     - 无论浏览器如何滚动，窗口都位于指定位置
+  - relative让我们的元素可以在不脱离文档流的情况下 使用left right top bottom，而移动的位置是相对于其本身的位置
+  - sticky 粘滞定位，滚动界面当标签相对于浏览器界面 等于指定定位时 标签粘滞
+### 盒子的层次
+- **z-index 数值越高标签越在上层**
+  -  ~~~
+    <body>
+    <div style="background-color: thistle; z-index: 10;"></div>
+    <div style="background-color: aquamarine;z-index: 11;"></div>
+    </body>
+       ~~~
+- **呈现形式 display：none | block | inline | inline-block**
+  - block 块级标签 可设置宽 ,高，元素独占一行
+  - inline 行级标签 不可设置宽，高，元素自适应内部内容
+  - inline-block 介于block与line之间 可以设置宽，高 但是不会独占一行
+- **表格线框**
+  
+
 ## 3.17  CSS
 ### 背景样式
 - background-image 设置背景图片

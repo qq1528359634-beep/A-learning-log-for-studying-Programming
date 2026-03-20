@@ -137,7 +137,67 @@
   })(1,2);
  </script>
 ~~~
-
+### 闭包
+- 可以简单理解为子方法可以使用父方法中的变量（不建议使用闭包，变量不易释放）
+### DOM
+- DOM即Document Object Model
+- DOM用于操作html文档，准确说是操作html标签内的内容
+- JavaScript中将每一个标签 当作对象处理
+- html中，每个标签都有自己的属性，如style id class等，也拥有触发事件，方法。同样在js中作为
+    对象处理别的标签也拥有属性，事件，方法等成员。
+- 操作DOM对象，一般使用document关键字调用
+### js获取元素的方法
+- document.getElementById(id); 根据id获取元素节点
+-  document.getElementsByClassName(className); 根据class的值获取一组元素节点
+-  document.getElementByName(name); 根据name获取一组元素节点
+-  document.getElementByTagName(tag); 根据标签名获取一组元素节点
+### 注册事件
+- 事件注册常用的方式右很多种，此处先结束两种最常用的方法。一种为直接在元素上注册事件，另一种为在获取的对象上注册触发事件。
+	- 元素注册法
+	- 对象注册法-（对象注册法 实现了html与js的分离，更符合现在的编程思想 ）
+	~~~
+	<body>
+    <input type="text" name="" id="txt1" value="阿猫">
+      <script>
+        var changeMe=function(){
+            alert(event.target.value);
+        }
+        document.getElementById("txt1").onchange=changeMe;
+    </script>
+    </body>
+	~~~
+### 动态操作元素
+- document.createElement();创建元素
+    - document.createElement( );创建元素
+    - document.appendchild( ); 添加子元素
+    - document.insertBefore(newEl,orgEl)在某元素前添加元素
+    - document.firstChild;获取第一个子元素
+    - document.childNodes;获取所有子节点元素
+    - document.removeChild();移除所有子节点元素
+      脚本空白处也算节点
+    ~~~
+    <body>
+    <ul id="ulist"><li>1</li><li>2</li><li>3</li></ul>
+    <script>
+        var list=document.getElementById("ulist");
+       // list.removeChild(list.childNodes[0]);
+        //list.removeChild(list.firstChild);
+        list.removeChild(list.lastChild);
+       var newTag=document.createElement("div");
+       newTag.innerHTML="Hello World!";
+       document.body.appendChild(newTag);
+    </script>
+  </body>
+    ~~~
+### 获取元素内容
+- innerHTML
+	- innerHTML用于获取与赋值拥有开闭标签的元素中完整内容
+	  *innerHTML 可以获取到 指定开闭标签内的全部内容*
+	- innerHTML赋值可以识别并添加HTML标签
+- innerText
+	- 只获取纯文字内容
+	- 添加元素时无法识别标签，将标签视作纯文本
+   
 ## 3.19 Javascript
 - **JavaScript基础**
   JavaScript和java是完全不同的东西，只是名称类似
@@ -166,7 +226,6 @@ fun1 (12)
  * @param {string} param1 这是参数一
  */
 function fun1(param1){
-
 }
 ~~~
 	

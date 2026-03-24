@@ -1,3 +1,91 @@
+## 3.24 JS Csharp混讲
+- JS中的every方法等价于C#中的All
+	- All：当对象集合所有元素都符合判断条件则返回true
+	~~~
+	Console.WriteLine(striList.All(m => m != "ace"));
+	~~~
+	- JS：every
+	~~~
+	var allWrong=strList.every(m=>m!="ace");
+	~~~
+- JS中的includes方法等价于Csharp中的contains方法
+	- contains
+	~~~
+	//contains如果包含某人就返回true，否则返回false
+	Console.WriteLine(striList.Contains("Ace"));
+	//如果字符串中包含指定字符就返回true，否则返回false
+	string str = "hello world!";
+	Console.WriteLine(str.Contains("world"));	
+	~~~
+	
+- includes
+	~~~
+	var strList=["Taro","Zoffy","Man","Seven","Jack","Ace"];
+	var allWrong=strList.every(m=>m!="ace");
+	var bool=strList.includes("Ace");
+	console.log(bool);
+	var str="Hello World!";
+	str.includes("Hello");
+	console.log(str.includes("Hello"));
+	~~~
+- contact
+	- JS
+	~~~
+	var list1=[1,2,3,4]
+    var list2=[5,6,7,8]
+    var list=list1.concat(list2);
+	~~~
+	- Csharp
+	~~~
+	 string[] striArr = { "A", "B" };
+     string[] striArr2 = { "C", "D" };
+	 string[] striArr3 = striArr.Concat(striArr2).ToArray();
+	~~~
+	- push unshift splice
+	~~~
+	//push从尾部添加 
+	//unshift从头部添加
+	list.push(9);
+	list.unshift(0);
+	//splice 既可以删除数据，也可以添加数据
+	list.splice(0,1);
+	list.splice(1,0,9);
+	console.log(list);
+	~~~
+### JS中的拓展运算符
+- ...  相当于C#中的params
+	~~~
+	//...表示扩展运算符
+function add(array,...array2){
+   let sum=0;
+   for (let i = 0; i < array2.length; i++) {
+    sum+=array2[i];
+   }
+   return sum;
+}
+var res=add(2,3,4,5);
+console.log(res);
+var [list1,...list2]=[1,2,3,4];
+console.log(list1);
+console.log(list2);
+	~~~
+### 字符串转换为 字符数组
+- JS
+~~~
+var str="Hello World!";
+var chars=[...str];
+console.log(chars);
+//三种匹配方式
+document.querySelectorAll("div");
+document.querySelectorAll(".my-class");
+document.querySelectorAll("#myID");
+~~~
+- Csharp
+~~~
+string str = "hello world!";
+str.ToCharArray();
+~~~
+
 ## 3.23 JS Csharp混讲
 - JS中的some方法等价于C#中any方法
 - JS中的Filter方法  返回集合中所有符合条件的对象

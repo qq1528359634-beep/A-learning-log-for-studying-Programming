@@ -3,7 +3,6 @@
 ~~~
 //Windows PowerShell 允许当前系统运行脚本
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 //安装TS包
 npm install -g typescript
 //将TS文件转化JS文件
@@ -16,6 +15,26 @@ tsc --init
  "outDir": "./js"
  //VScode 中运行任务-TS-监视
 ~~~
+- TS中的几种基本类型
+	- boolean
+		~~~
+		let isDone:boolean=false;
+		console.log(isDone);
+		~~~
+	- number
+	~~~
+	//数字类型 number
+	let n0:number=6;
+	let n1:number=0xf00d;
+	~~~
+	- string
+	~~~
+	//字符串
+	let name:string="Ace";
+	name="Cks";
+	let msg:string="hello"+name+"World";
+	msg=`hello ${name} World!`;
+	~~~
 
 ## 3.24 JS Csharp混讲
 - JS中的every方法等价于C#中的All

@@ -1,3 +1,22 @@
+## 3.25 TypeScript
+- 确保已按照node.js 且设置系统允许运行脚本
+~~~
+//Windows PowerShell 允许当前系统运行脚本
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+//安装TS包
+npm install -g typescript
+//将TS文件转化JS文件
+tsc .\test.ts
+//运行js 脚本
+node test.js
+//创建tsconfig.js文件
+tsc --init
+//在tsc文件中设置“outDir”
+ "outDir": "./js"
+ //VScode 中运行任务-TS-监视
+~~~
+
 ## 3.24 JS Csharp混讲
 - JS中的every方法等价于C#中的All
 	- All：当对象集合所有元素都符合判断条件则返回true

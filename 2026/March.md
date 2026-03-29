@@ -1,3 +1,306 @@
+
+## 3.28 TS
+### 常量
+- const定义变量 本身不能赋值或者修改，但如果他是一个对象则内部的属性可以被修改
+	~~~
+	const userName="Cks";
+const user={
+    name:"Cks",
+    age:18
+}
+user.name ="Ace";
+user.age=19;
+	~~~
+### 解构与拓展
+~~~
+//解构与扩展
+ let input=[1,2];
+ let [first,second]=input;
+ console.log(first);
+ console.log(second);
+
+ let input1=[1,2];
+ function f([f,s]:[number,number]){
+ console.log(f);
+ console.log(s);
+ }
+ f(input1 as [number,number]);
+
+let [f]=[1,2,3,4];
+console.log(f);
+let [one,...others]=[1,2,4,5];
+console.log(one);
+console.log(others);
+~~~
+### 对象解构 扩展
+~~~
+let object={
+    a:"a",
+    b:2,
+    c:true
+}
+let {a,b}=object;
+console.log(a);
+console.log(b);
+//扩散运算符
+let {c,...d}=object;
+console.log(b);
+console.log(d);
+~~~
+### 接口
+- TS中独有，JS没有，作用1.约束：继承接口就必须实现接口中的所有内容 2.对接 3.多态
+- 前端中string不可以为null，但是后端中string可以为null
+- 接口定义中变量名后加? 可以为undefined，而问号后面加 |null可以为空
+- 只读属性 在前面追加readnoly   -readnoly场景在属性，而const作用与变量
+	~~~
+	interface  IUser{
+    userName?:string,
+    age:number|null
+}
+let user:IUser={
+    age:null
+}
+function print(user:IUser){
+   console.log(user.userName);
+   console.log(user.age);
+}
+print(user);
+	~~~
+- ReadnolyArray 类型不能执行如何操作，包括赋值给另一个数组
+~~~
+let arr1:ReadonlyArray<number>=[1,2,3,4]
+let arr2:number[]=arr1 as number[];
+console.log(arr2);
+~~~
+### 口浮动属性与索引类型
+- 接口中浮动属性，可以用于容错
+~~~
+interface IUserName{
+    userName:string,
+    age?:20,
+    [propName:string]:any
+}
+function getUser(user:IUserName){
+    console.log(user.ag);
+    console.log(user.userName);  
+}
+let user:IUserName={
+    userName:"Cks",
+    ag:20
+}
+getUser(user);
+~~~
+- 接口索引类型
+	~~~
+	interface IStringArray{
+    [index:number]:string
+}
+let strArray:IStringArray=["Cks","Tim","Ai"];
+let str=strArray[0];
+console.log(str);
+	~~~
+### 接口继承类
+- 关键字extends 将类中的属性，方法保留声明部分 传给接口
+	~~~
+	class User{
+    userName:string;
+    /**
+     *
+     */
+    constructor() {
+       this.userName="Cks" 
+    }
+    addUser(name:string){
+        this.userName=name;
+    }
+}
+
+interface IUser extends User{
+    age:number;
+}
+
+class Person implements IUser{
+    age: number=10;
+    userName: string="hello";
+    addUser(name: string): void {
+        throw new Error("Method not implemented.");
+    }
+}
+	~~~
+### TS类的继承
+- 子类想要重写父类中的方法或者属性，必须使在构造函数中使用super（）
+- TS在子类中重写父类方法 就是重写了父类方法
+	~~~
+	class Person {
+    height;
+    Weight;
+    /**
+     *
+     */
+    constructor() {
+        this.Weight = 70;
+        this.height = 186;
+    }
+    eat() {
+        console.log("eat");
+    }
+}
+class Student extends Person {
+    /**
+     *
+     */
+    constructor() {
+        super();
+        this.Weight = 100;
+    }
+    eat() {
+        console.log("student eat");
+    }
+}
+let student = new Student();
+student.eat();
+console.log(student.Weight);
+	~~~
+### TS中的访问级别
+- public：公共类型 外部可以访问，子类也可以访问
+- private：私有类型，内部可以访问，但外部或子类无法访问
+- protected：保护类型，本类的内部可以访问，子类也可以访问
+### 代理模式  C#中的get set
+~~~
+class User{
+    private _weight:number;
+    /**
+     *
+     */
+    constructor() {
+        this._weight=70;
+    }
+    get weight():number{
+        return this._weight
+    }
+    set weight(value:number){
+        this._weight=value;
+    }
+}
+let user=new User();
+console.log(user.weight);
+user.weight=199;
+console.log(user.weight);
+~~~
+### 静态类型
+- 静态类型 static 保持不变 不被初始化
+~~~
+class User{
+    static weight:number=60;
+
+}
+console.log(User.weight);
+User.weight=100;
+console.log(User.weight);
+~~~
+- 单例 实例
+	~~~
+	class UserAppService{
+    userName:string="Cks";
+   server(){
+    console.log(this.userName+"接入服务");
+    
+   }
+}
+
+class UserAppServiceFactory{
+    static userApp?:UserAppService;
+    getUseAppService(){
+    if(UserAppServiceFactory.userApp==null){
+    UserAppServiceFactory.userApp=new UserAppService();
+    } 
+    return UserAppServiceFactory.userApp;
+    }
+}
+class UserController{
+    userFac:UserAppServiceFactory=new UserAppServiceFactory();
+    server(){
+        let userApp:UserAppService=this.userFac.getUseAppService();
+        userApp.server();
+    }
+}
+new UserController().server();
+	~~~
+### 抽象类
+	抽象类
+	只有抽象类能够有抽象方法
+	一个类继承这个抽象类 则必须实现其抽象方法
+### 泛型
+- 泛型T 能够保持传入类型，能够点出原有属性 而any不可以
+~~~
+class User {
+    userName = "Cks";
+}
+class Department {
+    department = "department1";
+}
+function insert(model) {
+    return model;
+}
+let res = insert(new Department);
+console.log(res.department);
+class DbHelper {
+    insert(model) {
+        return model;
+    }
+}
+let dbHelper = new DbHelper();
+let res1 = dbHelper.insert(new User);
+console.log(res1.userName);
+~~~
+### 泛型约束
+- T extends User
+~~~
+class DbHelper<T extends User>{
+    insert<T>(model:T){
+    return model;
+    }
+}
+
+//用父类进行类型约束可以传入子类，并且保留子类特征
+class DbHelper<T extends BaseModel >{
+    insert(model:T){
+    return model;
+    }
+}
+let dbHelper=new DbHelper();
+let res1=dbHelper.insert(new Department);
+console.log(res1.id);
+~~~
+
+## 3.27 TypeScript
+### Object
+- 大写object和 小写object的区别
+	大写object是类，他又成员对象和成员方法
+	小写object是声明类型的关键字，二者都可以对变量进行声明但是用起来是不一样的
+	~~~
+	//大写Object和小写
+	let o:Object="Hello";
+	o=1;
+	let o1:object={
+	userName:"Cks"
+	};
+	~~~
+### 类型断言 显示转化
+- 和C#中的括号强制是一样的，唯一不同的就是用尖括号来代替圆括号。
+	推荐使用as
+~~~
+// 类型断言 显示转化
+let anyValue:any="HelloWorld!";
+let str:number=(<string>anyValue).length;
+str=(anyValue as string).length;
+console.log(str);
+~~~
+### 声明变量
+- var和let
+	var声明的变量可以重复声明，var可以跨作用域声明在语句块内部也可以被从外部被访问
+
+
 ## 3.26 TypeScript
 ~~~
 /数组

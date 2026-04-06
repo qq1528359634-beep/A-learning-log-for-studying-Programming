@@ -1,3 +1,31 @@
+## 04.06  Vue3 webApi
+- Vue3 中的视图属性  v-html
+~~~
+
+<h1 v-html="getMessage()"></h1>
+function getMessage(){
+                return `<h1><u>${message}</u></h1>`;
+            }
+~~~
+### webAPI 路由地址
+- 路由通过Route中的特性来定义
+	通配符 
+	~~~
+	//控制器通配符   
+	[Controller]
+	//方法通配符
+	[Action]
+	~~~
+- 如何开启热加载 在端口中输入 dotnet watch ，关闭ctrl+c，重启ctrl+R
+	热加载donet watch run 默认监听http端口，要想其监听https端口运行如下代码
+	~~~
+	dotnet watch run --launch-profile "https"
+	~~~
+- 请求路径中附带多个对象
+~~~
+http://localhost:5299/api/mynew/GetUserName?id=1&name=abc&age=18
+~~~
+
 ## 04.05 Vue3
 ### 函数中的超时
 - setTimeout

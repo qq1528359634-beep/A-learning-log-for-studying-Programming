@@ -1,3 +1,30 @@
+## 04.07 webApi
+- webApi中的Query传参
+	~~~
+	//请求路径中带多个参数，第一个用？后面都用&隔开
+	http://localhost:5299/api/mynew/GetUserName?id=1&name=abc&age=18
+	~~~
+### 400 Badrequest
+- 请求参数个数不正确
+- 请求参数类型不正确
+- Get请求URL长度超过浏览器或者web服务器限制
+- 为什么参数为布尔类型时，不传参数也不报错---因为布尔类型 默认为false
+- string 类型默认为null，null就是没有
+~~~
+//方法参数加了URL 可以不传参数也不报错
+ public string GetUserName(long id, string? showCN)
+~~~
+### RESTful 风格的四种传参方式
+- GET--读取，获取数据  
+- POST--添加数据
+- PUT--修改数据
+- DELETE--删除数据
+*对应数据库中的CRUD*
+*JSON格式中的对象，键和值都要双引号*
+~~~
+{"name": "Gemini"}
+~~~
+
 ## 04.06  Vue3 webApi
 - Vue3 中的视图属性  v-html
 ~~~

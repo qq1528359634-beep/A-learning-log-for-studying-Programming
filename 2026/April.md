@@ -1,3 +1,63 @@
+## 04.09 webApi
+### 依赖注入是实现控制反转的技术手段
+- 不使用依赖注入时，需要在当前类中创建其他类的实例对象，使得当前类与其他类高度耦合
+~~~
+ [Route("api/[controller]")]
+ [ApiController]
+ public class ProductController : ControllerBase
+ {
+     ProductServices productServices = new ProductServices();
+     [HttpGet]
+     public string GetName(long id)
+     {
+       return  productServices.GetProductName(id);
+     }
+ }
+~~~
+- 依赖注入
+~~~
+//向DI容器中注册服务
+//告诉系统，每当有地方需要 `ProductServices` 这个类时，请为它创建一个新的实例
+builder.Services.AddTransient<ProductServices>();
+
+
+[Route("api/[controller]")]
+[ApiController]
+public class ProductController : ControllerBase
+{
+    private readonly ProductServices _productServices;
+
+    public ProductController(ProductServices productServices)
+    {
+        _productServices= productServices;
+    }
+
+    [HttpGet]
+    public string GetName(long id)
+    {
+        return _productServices.GetProductName(id);
+    }
+}
+~~~
+- 依赖注入的三种生命周期
+~~~
+//瞬时生命周期   瞬态 只用一次就结束（每次都创建新的实例。使用后就销毁）
+builder.Services.AddScoped<ScopedServices>();
+
+//Addscoped 作用域生命周期
+builder.Services.AddTransient<TransientServices>();
+
+//AddSingleton 单例生命周期，只注册一次之后就使用这个单例
+builder.Services.AddSingleton<SingletonServices>();
+~~~
+- 三种生命周期的使用场景
+	无状态的服务使用Transient
+	一次请求中，上一次调用服务与下一次调用服务有关联Scoped
+	单例，不会被系统销毁，不同请求要有关联
+- Singleton单例服务不好的点
+	不同单例服务如果太多，会占用内存
+	哪怕被调用的服务时瞬时服务，只要该服务中调用了单例服务，则该服务不会被回收
+
 ## 04.08 webApi
 - 一个程序中不能有2个一模一样的路由
 - 需要通过不同动词或者路由结尾区分

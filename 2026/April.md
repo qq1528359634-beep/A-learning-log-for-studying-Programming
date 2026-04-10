@@ -1,3 +1,23 @@
+## 04.10 webApi
+- 用接口作为服务，类作为实现，提高代码可读性，符合依赖倒置
+	降低耦合度,注册服务时使用接口而非具体类
+~~~
+//注册IProductServices，其实现为ProductServices (依赖倒置)
+builder.Services.AddTransient<IProductServices,ProductServices>();
+
+//服务和实现都为其本身
+builder.Services.AddTransient<ProductServices>();
+~~~
+- 注册的不同方式
+	- 泛型注册
+		~~~
+		builder.Services.AddTransient<IProductServices,ProductServices>();
+		~~~
+	- 类型注册
+	~~~
+	builder.Services.AddTransient(typeof(ITransientServices),typeof(TransientServices));
+	~~~
+
 ## 04.09 webApi
 ### 依赖注入是实现控制反转的技术手段
 - 不使用依赖注入时，需要在当前类中创建其他类的实例对象，使得当前类与其他类高度耦合

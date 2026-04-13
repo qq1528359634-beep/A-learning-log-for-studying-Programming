@@ -1,3 +1,40 @@
+## 04.13 webApi 过滤器
+- AOP面向切面编程
+- Action Filter 过滤器
+	- 过滤器应该与控制器平级
+	- 要成为执行方法的过滤器，需要继承IActionFilter接口，并实现OnActionExecuted和OnActionExecuting 两个方法
+- 特性Attribute（特性名称后面加Attribute）
+	~~~
+public class MyActionFilterAttribute :Attribute,IActionFilter
+{ 
+    //在Action方法执行之后执行
+    public void OnActionExecuted(ActionExecutedContext context)
+    {
+        Console.WriteLine("Action方法执行之后");
+    }
+
+    //在Action方法执行之前执行   
+    public void OnActionExecuting(ActionExecutingContext context)
+    {
+        Console.WriteLine("Action方法执行之前");
+    }
+}	
+	~~~
+- 常用特性
+~~~
+//追加此特性，表示该控制器为WebAPI控制器。开启自动验证模型，绑定推断等高级功能
+[ApiController] 
+
+//表示该方法接收的请求动词，该方法只允许Get请求
+[HttpGet]
+
+//定义方法的访问地址
+[Route("api/[Controller]/[Action]")]
+
+//自定义逻辑（检查监控）
+[MyActionFilter]
+~~~
+
 ## 04.10 webApi
 - 用接口作为服务，类作为实现，提高代码可读性，符合依赖倒置
 	降低耦合度,注册服务时使用接口而非具体类

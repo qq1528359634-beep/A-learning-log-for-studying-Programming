@@ -1,3 +1,27 @@
+## 04.15 webApi-SourceFilter
+- 前端传进来的数据，在与控制器绑定模型之前，只是2进制数据。绑定后才从混乱的原始数据变成了有序的业务对象。
+### HttpContext 
+- Controller构造函数执行完之后，才对HttpContext进行赋值
+~~~
+public class MyResourceFilter : Attribute, IResourceFilter
+{
+    public void OnResourceExecuted(ResourceExecutedContext context)
+    {
+           
+    }
+
+    public void OnResourceExecuting(ResourceExecutingContext context)
+    {
+      //这里的字符串区分大小写
+        context.HttpContext.Items["Name"]= "Cks";
+    }
+}
+~~~
+- const 不能和static一起使用，因为const就是静态
+### 请求周期
+- 前端传入请求→OnResourceExecuting→controller构造函数→OnActionExecuting→Action→OnActionExecuted→OnResourceExecuted
+
+
 ## 04.14 webApi
 ### 过滤器获取context上下文信息
 ~~~

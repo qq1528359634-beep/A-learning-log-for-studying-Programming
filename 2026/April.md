@@ -1,3 +1,19 @@
+## 04.17 webApi-授权过滤器的使用
+- 授权过滤器只有头没有尾，他的作用只有一个那就是授权
+	JWT用户令牌
+~~~
+  public class MyAuthorizationFilter : Attribute, IAuthorizationFilter
+  {
+      public void OnAuthorization(AuthorizationFilterContext context)
+      {
+          context.Result = new JsonResult(null)
+          {
+              StatusCode = 403
+          };
+      }
+  }
+~~~
+
 ## 04.16 webApi-管道短路器
 - 若context.Result已经有结果则直接返回结果
 - 不经过Action也不经过Filter

@@ -1,3 +1,21 @@
+## 04.21 结果过滤器
+- ResultFilter
+	作用就是操作结果
+	~~~
+	  public class MyResultFilterAttribute : Attribute, IResultFilter
+  {
+      public void OnResultExecuted(ResultExecutedContext context)
+      {
+            
+      }
+
+      public void OnResultExecuting(ResultExecutingContext context)
+      {
+            
+      }
+  }
+	~~~
+
 ## 04.18 异常处理过滤器
 
 - 只能捕获ActionFilter和Action中的异常

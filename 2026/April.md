@@ -1,3 +1,25 @@
+## 04.22 过滤器添加位置和执行顺序
+- 将ActionFilter添加于控制器上，则控制器中每个方法都会执行ActionFilter
+- 全局使用过滤器
+~~~
+builder.Services.AddControllers(opt=>opt.Filters.Add<MyActionFilterAttribute>());
+~~~
+- 全局Filter，控制器Filter，ActionFilter默认执行顺序
+~~~
+executing
+全局Filter → 控制器Filter → ActionFilter 
+executed
+ActionFilter → 控制器Filter → 全局Filter
+~~~
+- 给Filter特性追加权重
+~~~
+
+order 越小则越早执行executing方法
+
+[TypeFilter<MyActionFilterOnActionAttribute>(Order =2)]
+builder.Services.AddControllers(opt=>opt.Filters.Add<MyActionFilterAttribute>(1));
+~~~
+
 ## 04.21 结果过滤器
 - ResultFilter
 	作用就是操作结果

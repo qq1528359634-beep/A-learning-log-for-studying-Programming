@@ -1,3 +1,41 @@
+## 04.26 手写中间件
+- 传入参数RequestDelegate  next，向下传递http.context
+- 中间件“约定优于配置”。中间件不需要任何基类或者接口只要满足以下条件即可
+	- 构造函数包含 RequestDelegate。
+	- 拥有一个名为 Invoke 或 InvokeAsync 的方法。
+	- 该方法接收HttpContext并返回Task
+~~~
+public class ExceptionHandleMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionHandleMiddleware> _logger;
+
+    public ExceptionHandleMiddleware(RequestDelegate next,ILogger<ExceptionHandleMiddleware> logger)
+    {
+        this._next = next;
+        this._logger = logger;
+    }
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await _next(context);
+        }catch (Exception ex)
+        {    
+            _logger.LogError(ex, "全局异常捕获");
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsync("服务器发生异常，请稍后再试");
+        }
+    }
+}
+~~~
+- 请求管道中添加中间件
+~~~
+app.UseMiddleware<ExceptionHandleMiddleware>();
+app.UseMiddleware<CustomeHandleMiddleware>();
+~~~
+
+
 ## 04.23 中间件的概念
 
 - 一个请求从外部进入系统时经历的一个个组件称为中间件
